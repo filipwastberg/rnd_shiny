@@ -8,26 +8,29 @@
 #
 
 library(shiny)
-
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
-  
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotOutput("distPlot")
+pageWithSidebar(
+  headerPanel("Beräkning av kontrollgruppsstorlek för att bevisa en skillnad mellan grupperna"),
+  sidebarPanel("Teststyrka",
+      numericInput("test","Antal test", value = 1),
+      sliderInput("sig1", "Signifikansnivå",
+                  min = 1, max = 99, value = 95),
+      sliderInput("Power", "Power", min=0.01, max=0.99, value=0.8),
+      "Mål och kontrollgrupp 1",
+      numericInput("pros1","Totalt antal prospekts",value=NA),
+      numericInput("hitrate1", "Hit rate målgrupp", value=0.01),
+      numericInput("hiteratec1", "Hit rate kontrollgruppen", value=0.009),
+      "Mål och kontrollgrupp 2",
+      numericInput("pros2","Totalt antal prospekts",value=NA),
+      numericInput("hitrate2", "Hit rate målgrupp", value=NA),
+      numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA)             
+      
     )
-  )
-))
+  
+  ,
+  mainPanel(
+    
+    h2(textOutput("TRAMS")) )
+  
+    
+)
