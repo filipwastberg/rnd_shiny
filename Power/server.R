@@ -7,7 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 library(shiny)
-blabla
 # Define server logic required to draw a histogram
 function(input, output){
  textinput <- reactive({
