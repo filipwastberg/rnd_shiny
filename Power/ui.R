@@ -9,10 +9,11 @@
 
 library(shiny)
 library(shinydashboard)
-# Define UI for application that draws a histogram
-dashboardPage(
-  dashboardHeader(title = "Beräkning av kontrollgruppsstorlek för att bevisa en skillnad mellan grupperna"),
+# Define UI for instaapplication that draws a histogram
+dashboardPage( skin = "red",
+  dashboardHeader(title = "Beräkning av kontrollgruppsstorlek", titleWidth=350),
   dashboardSidebar("Teststyrka",
+                   width=350,
                numericInput("test","Antal test", value = 1),
                sliderInput("sig1", "Signifikansnivå",
                            min = 1, max = 99, value = 95),
@@ -29,14 +30,15 @@ dashboardPage(
   )
   ,
   dashboardBody(
+    HTML('<header>
+ <img src="logo.jpg", width="120", align = "right"</img>
+         
+         </header>'),
     tableOutput("trams" ),
     tableOutput("trams1" ),
-    tableOutput("trams2" ),
+    tableOutput("trams2" )
     
-    HTML('<header>
- <img src="logo.jpg",height="120", width="120"</img>
-     
-     </header>')
+
     
   ))
 
