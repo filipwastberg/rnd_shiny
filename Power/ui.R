@@ -1,11 +1,3 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
 
 library(shiny)
 library(shinydashboard)
@@ -25,9 +17,7 @@ dashboardPage( skin = "red",
                "Mål och kontrollgrupp 2",
                numericInput("pros2","Totalt antal prospekts",value=NA),
                numericInput("hitrate2", "Hit rate målgrupp", value=NA, min=0, max=1),
-               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1)
-
-  )
+               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1))
   ,
   dashboardBody(
     HTML('<header>
@@ -36,10 +26,8 @@ dashboardPage( skin = "red",
          </header>'),
     tableOutput("trams" ),
     tableOutput("trams1" ),
-    tableOutput("trams2" )
-    
+    tableOutput("trams2" ),
+    tableOutput("trams4" )
 
     
   ))
-
-

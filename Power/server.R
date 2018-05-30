@@ -1,11 +1,3 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
 library(shiny)
 
 
@@ -42,7 +34,7 @@ function(input, output){
     names(tab) <- c("Målgrupp 2", "Kontrollgrupp 2")
     return(tab)
   })
-
+  
   
   textinput2<- reactive({
     res1 <-  (-qnorm(1-input$sig1/100)+qnorm(input$Power))^2
@@ -96,7 +88,7 @@ function(input, output){
   })
   
   textinput1 <- reactive({
-    res1 <-  (-qnorm(1-input$sig1/100)+qnorm(input$Power))^2
+    res1<-  (-qnorm(1-input$sig1/100)+qnorm(input$Power))^2
     res2 <-  input$hitrate2*(1-input$hitrate2)+input$hiteratec2*(1-input$hiteratec2)
     res3 <- (input$hitrate2-input$hiteratec2)^2
     res4 <- round(res1*res2/res3,0)
@@ -109,11 +101,9 @@ function(input, output){
     names(tab) <- c("Målgrupp 2", "Kontrollgrupp 2")
     return(tab)
   })
-  output$trams1 <- renderTable({textinput1()})
   
   
-  
-  textinput2<- reactive({
+  textinput4<- reactive({
     res1 <-  (-qnorm(1-input$sig1/100)+qnorm(input$Power))^2
     res2 <-  input$hitrate1*(1-input$hitrate1)+input$hiteratec1*(1-input$hiteratec1)
     res3 <- (input$hitrate1-input$hiteratec1)^2
@@ -124,19 +114,40 @@ function(input, output){
     kontrollgrupp <-as.integer(ifelse(res5 < res4, input$pros1/2, res4))
     malgrupp <- as.integer(input$pros1-kontrollgrupp)
     
-    svar_malgrp<- input$hitrate1*malgrupp  
-    svar_cntgrp<- input$hiteratec1*kontrollgrupp
     
-    tab2<- as.data.frame(cbind(svar_malgrp, svar_cntgrp))
-    names(tab2)<- c("Målgrupp: Förväntade antal svar", "Kontrollgrupp: Förväntade antal svar" )
+    res1_2<-  (-qnorm(1-input$sig1/100)+qnorm(input$Power))^2
+    res2_2 <-  input$hitrate2*(1-input$hitrate2)+input$hiteratec2*(1-input$hiteratec2)
+    res3_2 <- (input$hitrate2-input$hiteratec2)^2
+    res4_2 <- round(res1_2*res2_2/res3_2,0)
+    res5_2 <- input$pros2 - res4_2
+    alpha2 <- (1-input$sig1/100)
+    kontrollgrupp2 <-as.integer(ifelse(res5_2 < res4_2, input$pros2/2, res4_2))
+    malgrupp2 <- as.integer(input$pros2-kontrollgrupp2)
+    
+    p_joint<- ifelse(malgrupp2 == 0, 0, 
+                     ((input$hitrate2 * malgrupp + input$hiterate2 * malgrupp2)/(malgrupp2 + malgrupp)))
+    z<- ifelse(malgrupp2 ==0, 0,
+               ((input$hitrate2 - input$hiterate2 - 0)/((p_joint*(1-p_joint)*(1/malgrupp2 + 1/malgrupp))^0.5)))
+    z_grans<- qnorm(1-alpha/2)
+    #prob_null <- ifelse(z>0, (1-pnorm(abs(z)))^2, 0 )
+    
+    reject_null<- ifelse(z<z_grans, "SANT", "FALSKT")
+    
+    
+    tab2<- as.data.frame(cbind(p_joint, reject_null))
+    names(tab2)<- c("p joint", "Skillnad mellan Målgrupp1 och Målgrupp2 kan detekteras" )
     
     return(tab2)
     
   })
   
   
-  
   output$trams <- renderTable({textinput()})
-  output$trams2 <- renderTable({textinput2()})
+  output$trams1 <- renderTable({textinput1()})
+  output$trams4 <- renderTable({textinput4()})
   
 }
+
+
+
+
