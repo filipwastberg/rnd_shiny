@@ -19,17 +19,20 @@ dashboardPage(
                sliderInput("Power", "Power", min=0.01, max=0.99, value=0.8),
                "Mål och kontrollgrupp 1",
                numericInput("pros1","Totalt antal prospekts",value=10000),
-               numericInput("hitrate1", "Hit rate målgrupp", value=0.01, min=0, max=1),
-               numericInput("hiteratec1", "Hit rate kontrollgruppen", value=0.005, min=0, max=1),
+               numericInput("hitrate1", "Hit rate målgrupp", value=0.01),
+               numericInput("hiteratec1", "Hit rate kontrollgruppen", value=0.005),
                "Mål och kontrollgrupp 2",
                numericInput("pros2","Totalt antal prospekts",value=NA),
                numericInput("hitrate2", "Hit rate målgrupp", value=NA, min=0, max=1),
                numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1),             
                img(src='logo.jpg', align = "right")
+
   )
   ,
   dashboardBody(
     tableOutput("trams" ),
-    tableOutput("trams1" )
+    tableOutput("trams1" ),
+    tableOutput("trams2" )
     
   ))
+
