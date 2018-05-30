@@ -31,7 +31,8 @@ pageWithSidebar(
   mainPanel(
     
     tableOutput("trams" ),
-    tableOutput("trams1" )
+    tableOutput("trams1" ),
+    tableOutput("trams2" )
     
   ))
 
