@@ -24,15 +24,20 @@ dashboardPage(
                "Mål och kontrollgrupp 2",
                numericInput("pros2","Totalt antal prospekts",value=NA),
                numericInput("hitrate2", "Hit rate målgrupp", value=NA, min=0, max=1),
-               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1),             
-               img(src='logo.jpg', align = "right")
+               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1)
 
   )
   ,
   dashboardBody(
     tableOutput("trams" ),
     tableOutput("trams1" ),
-    tableOutput("trams2" )
+    tableOutput("trams2" ),
+    
+    HTML('<header>
+ <img src="logo.jpg",height="120", width="120"</img>
+     
+     </header>')
     
   ))
+
 
