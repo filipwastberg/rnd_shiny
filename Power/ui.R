@@ -8,10 +8,11 @@
 #
 
 library(shiny)
+library(shinydashboard)
 # Define UI for application that draws a histogram
-pageWithSidebar(
-  headerPanel("Beräkning av kontrollgruppsstorlek för att bevisa en skillnad mellan grupperna"),
-  sidebarPanel("Teststyrka",
+dashboardPage(
+  dashboardHeader(title = "Beräkning av kontrollgruppsstorlek för att bevisa en skillnad mellan grupperna"),
+  dashboardSidebar("Teststyrka",
                numericInput("test","Antal test", value = 1),
                sliderInput("sig1", "Signifikansnivå",
                            min = 1, max = 99, value = 95),
@@ -23,13 +24,11 @@ pageWithSidebar(
                "Mål och kontrollgrupp 2",
                numericInput("pros2","Totalt antal prospekts",value=NA),
                numericInput("hitrate2", "Hit rate målgrupp", value=NA, min=0, max=1),
-               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1)             
-               
+               numericInput("hiteratec2", "Hit rate kontrollgruppen", value=NA, min=0, max=1),             
+               img(src='logo.jpg', align = "right")
   )
-  
   ,
-  mainPanel(
-    
+  dashboardBody(
     tableOutput("trams" ),
     tableOutput("trams1" )
     

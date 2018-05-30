@@ -43,5 +43,5 @@ function(input, output){
     return(tab)
   })
   output$trams1 <- renderTable({textinput2()})
-  
+  output$logo <- renderImage("logo.jpg")
 }
